@@ -2,8 +2,9 @@
 <?php include 'function.php';?>
 <?php
 header("Content-type: image/JPEG");
-$im = imagecreatefromjpeg("xhxh.jpg"); 
-$ip = $_SERVER["REMOTE_ADDR"];
+$r = rand(0,25);
+$im = imagecreatefromjpeg( "xhxh".$r.".jpg"); 
+$ip = $_SERVER["HTTP_X_FORWARDED_FOR"];// $_SERVER["REMOTE_ADDR"];
 $weekarray=array("日","一","二","三","四","五","六"); //先定义一个数组
 $get=$_GET["s"];
 $get=base64_decode(str_replace(" ","+",$get));
@@ -25,18 +26,20 @@ $data = json_decode($data, true);
 $country = $data['data']['country']; 
 $region = $data['data']['region']; 
 $city = $data['data']['city'];
-//定义颜色
+//定义颜色 
 $black = ImageColorAllocate($im, 0,0,0);//定义黑色的值
-$red = ImageColorAllocate($im, 255,0,0);//红色
+$red = ImageColorAllocate($im, 255,80,80);//红色
+$lightpink = ImageColorAllocate($im, 255,182,193);//浅粉红色
 $font = 'msyh.ttf';//加载字体
+$sweet = 'sweet.ttf';
 //输出
 imagettftext($im, 16, 0, 10, 40, $red, $font,'欢迎您来自'.$country.'-'.$region.'-'.$city.'的朋友');
 imagettftext($im, 16, 0, 10, 72, $red, $font, '今天是'.date('Y年n月j日')."  星期".$weekarray[date("w")]);//当前时间添加到图片
 imagettftext($im, 16, 0, 10, 104, $red, $font,'您的IP是:'.$ip);//ip
 imagettftext($im, 16, 0, 10, 140, $red, $font,'您使用的是'.$os.'操作系统');
 imagettftext($im, 16, 0, 10, 175, $red, $font,'您使用的是'.$bro.'浏览器');
-imagettftext($im, 14, 0, 10, 200, $black, $font,$get); 
-//imagettftext($im, 15, 0, 10, 200, $red, $font,'被偷窥'.$counter.'次'); 
+imagettftext($im, 14, 0, 10, 201, $lightpink, $sweet,'冷冷の圈儿已经被偷窥'.$counter.'次'); 
+//imagettftext($im, 14, 0, 10, 200, $black, $font,$get); 
 ImageGif($im);
 ImageDestroy($im);
 ?>
