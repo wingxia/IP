@@ -4,7 +4,7 @@
 header("Content-type: image/JPEG");
 $r = rand(0,25);
 $im = imagecreatefromjpeg( "xhxh".$r.".jpg"); 
-$ip = $_SERVER["HTTP_X_FORWARDED_FOR"];// $_SERVER["REMOTE_ADDR"];
+$ip = $_SERVER["REMOTE_ADDR"];//$_SERVER["HTTP_X_FORWARDED_FOR"]
 $weekarray=array("日","一","二","三","四","五","六"); //先定义一个数组
 $get=$_GET["s"];
 $get=base64_decode(str_replace(" ","+",$get));
